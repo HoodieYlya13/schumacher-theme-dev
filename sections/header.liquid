@@ -80,6 +80,150 @@
   .section-header {
     position: sticky; /* This is for fixing a Safari z-index issue. PR #2147 */
     margin-bottom: {{ section.settings.margin_bottom | times: 0.75 | round: 0 }}px;
+    z-index: 10;
+  }
+
+  .header-wrapper {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    background: rgba(var(--color-background), 0.55) !important;
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(var(--color-foreground), 0.08);
+    border-radius: 100px;
+    margin: 1.5rem auto;
+    width: calc(100% - 4rem);
+    max-width: var(--page-width);
+    box-shadow: 
+      0 10px 30px -10px rgba(0, 0, 0, 0.1),
+      inset 0 1px 1px rgba(255, 255, 255, 0.2);
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  .shopify-section-header-sticky .header-wrapper {
+    margin-top: 0.75rem;
+    background: rgba(var(--color-background), 0.75) !important;
+    box-shadow: 
+      0 20px 50px -12px rgba(0, 0, 0, 0.2),
+      inset 0 1px 1px rgba(255, 255, 255, 0.1);
+    transform: translateY(4px);
+  }
+
+  /* Remove default border bottom if present */
+  .header-wrapper--border-bottom {
+    border-bottom: none !important;
+  }
+
+  /* Make search modal fit the liquid glass pill */
+  .search-modal {
+    border-radius: 100px;
+    background: rgba(var(--color-background), 0.1) !important;
+    border: none;
+  }
+
+  /* Hide header content when search is open so it doesn't show through the glass */
+  .header:has(.header__search details[open]) header-drawer,
+  .header:has(.header__search details[open]) .header__heading,
+  .header:has(.header__search details[open]) .header__inline-menu,
+  .header:has(.header__search details[open]) .header__icons > *:not(.header__search) {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* Hide the toggle icon when search is open */
+  .header__search details[open] > summary {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  details[open] > .search-modal {
+    box-shadow: none !important;
+  }
+
+  /* Hide default visual overlays but keep summary::before as an invisible click target 
+     so clicking outside the menu still closes it. */
+  .header-wrapper details summary::before {
+    display: block !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    top: -100vmax !important;
+    left: -100vmax !important;
+    width: 200vmax !important;
+    height: 200vmax !important;
+    cursor: default !important;
+  }
+  
+  details[open] .modal-overlay::after {
+    display: none !important;
+  }
+  
+  header-drawer, .header__heading, .header__inline-menu, .header__icons > * {
+    transition: opacity 0.3s ease;
+  }
+
+  /* Push main content down to avoid overlapping text, unless the first section is a banner/hero */
+  #MainContent {
+    padding-top: calc(var(--header-height, 100px) + 2rem);
+  }
+  
+  #MainContent:has(> .shopify-section:first-child .banner),
+  #MainContent:has(> .shopify-section:first-child .slideshow),
+  #MainContent:has(> .shopify-section:first-child .video-section),
+  #MainContent:has(> .shopify-section:first-child .collection-hero) {
+    padding-top: 0;
+  }
+
+  @media screen and (max-width: 749px) {
+    .header-wrapper {
+      margin: 1rem auto;
+      width: calc(100% - 2rem);
+      border-radius: 50px;
+    }
+    .search-modal {
+      border-radius: 50px;
+    }
+  }
+
+  /* Make the burger menu drawer a floating glass pill to match */
+  .menu-drawer {
+    top: calc(100% + 1rem) !important;
+    border-radius: 30px !important;
+    background: rgba(var(--color-background), 0.8) !important;
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    height: calc(100vh - var(--header-bottom-position, 100%) - 12rem) !important;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  }
+
+  .js .menu-drawer__submenu {
+    background: transparent !important;
+  }
+
+  /* Universal overlay for all header modals (Search & Burger).
+     Using a ::before pseudo-element behind the pill allows us to animate it 
+     fading in, while keeping the pill and its children bright. */
+  .header-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200vmax;
+    height: 200vmax;
+    background: rgba(var(--color-foreground), 0.5);
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0;
+    /* Center it behind the pill */
+    transform: translate(-50%, -50%);
+    transition: opacity 0.4s ease;
+  }
+
+  .header-wrapper:has(details[open])::before {
+    opacity: 1;
+    pointer-events: auto;
   }
 
   @media screen and (min-width: 750px) {
@@ -327,7 +471,10 @@
     }
 
     setHeaderHeight() {
-      document.documentElement.style.setProperty('--header-height', `${this.header.offsetHeight}px`);
+      // Since header-wrapper is absolute, section-header height is 0. 
+      // We calculate based on the actual sticky-header element.
+      const height = this.offsetHeight + 40; // Add margin/padding buffer
+      document.documentElement.style.setProperty('--header-height', `${height}px`);
     }
 
     disconnectedCallback() {
@@ -341,7 +488,7 @@
         observer.disconnect();
       });
 
-      observer.observe(this.header);
+      observer.observe(this);
     }
 
     onScroll() {
