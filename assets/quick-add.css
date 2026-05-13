@@ -365,6 +365,7 @@ quick-add-modal .product-form__buttons {
   font-weight: 600;
   transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+  pointer-events: auto !important;
 }
 
 .quick-add__submit:hover {
@@ -454,7 +455,7 @@ quick-add-bulk .quantity__input {
   .product-card-wrapper:hover .card > .card__content > .quick-add,
   .product-card-wrapper:hover .card > .card__content > quick-add-bulk {
     visibility: visible;
-    pointer-events: auto;
+    pointer-events: none;
     transform: translateY(-100%);
   }
 
