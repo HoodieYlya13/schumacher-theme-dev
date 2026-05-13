@@ -33,13 +33,13 @@ cart-items .title-wrapper-with-link {
 }
 
 .cart-item__image-container.global-media-settings {
-  --media-radius: 16px;
-  border-radius: var(--media-radius) !important;
-  overflow: hidden !important;
+  --media-radius: 12px;
+  background-color: transparent !important;
+  border: none !important;
 }
 
 .cart-item__image-container.global-media-settings img {
-  border-radius: calc(var(--media-radius) - var(--media-border-width)) !important;
+  border-radius: var(--media-radius) !important;
 }
 
 .cart-item__nested-line .cart-item__image-container {

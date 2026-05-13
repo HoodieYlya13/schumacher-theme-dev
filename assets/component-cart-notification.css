@@ -112,13 +112,13 @@
 }
 
 .cart-notification-product__image.global-media-settings {
-  --media-radius: 16px;
-  border-radius: var(--media-radius) !important;
-  overflow: hidden !important;
+  --media-radius: 12px;
+  background-color: transparent !important;
+  border: none !important;
 }
 
 .cart-notification-product__image.global-media-settings img {
-  border-radius: calc(var(--media-radius) - var(--media-border-width)) !important;
+  border-radius: var(--media-radius) !important;
 }
 
 .cart-notification-product__image:after {
