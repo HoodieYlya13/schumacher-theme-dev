@@ -543,24 +543,37 @@
 
 .facets__price {
   display: flex;
-  padding: 2rem;
-}
-
-.facets__price .field + .field-currency {
-  margin-left: 2rem;
+  padding: 2.5rem 2rem;
+  align-items: center;
+  gap: 1.2rem;
 }
 
 .facets__price .field {
-  align-items: center;
+  flex: 1;
 }
 
 .facets__price .field-currency {
-  align-self: center;
-  margin-right: 0.6rem;
+  position: absolute;
+  left: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.4rem;
+  opacity: 0.5;
+  pointer-events: none;
+  margin: 0;
+}
+
+.facets__price .field__input {
+  padding-left: 3.5rem !important;
 }
 
 .facets__price .field__label {
-  left: 1.5rem;
+  left: 3.5rem !important;
+}
+
+.facets__price .field-currency-separator {
+  opacity: 0.3;
+  font-weight: 300;
 }
 
 button.facets__button {
@@ -1192,11 +1205,7 @@ input.mobile-facets__checkbox {
   }
 
   .facets-vertical .facets__price {
-    padding: 0.5rem 0.5rem 0.5rem 0;
-  }
-
-  .facets-vertical .facets__price .field:last-of-type {
-    margin-left: 1rem;
+    padding: 2rem 0;
   }
 
   .facets-vertical .active-facets__button {
