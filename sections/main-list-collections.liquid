@@ -95,20 +95,21 @@
     align-items: center !important;
     gap: 1.5rem !important;
     background: rgba(var(--color-foreground), 0.1) !important;
-    backdrop-filter: blur(12px) !important;
-    -webkit-backdrop-filter: blur(12px) !important;
-    padding: 1.2rem 2.8rem !important;
+    backdrop-filter: blur(20px) saturate(160%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(160%) !important;
+    padding: 1.2rem 3.2rem !important;
     border-radius: 100px !important;
     border: 1px solid rgba(var(--color-foreground), 0.1) !important;
-    color: rgb(var(--color-foreground)) !important;
-    font-size: 1.2rem !important;
+    color: rgb(var(--color-background)) !important;
+    font-size: 1.1rem !important;
     font-weight: 400 !important;
-    letter-spacing: 0.25em !important;
+    letter-spacing: 0.3em !important;
     text-transform: uppercase !important;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
     text-decoration: none !important;
-    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1) !important;
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1) !important;
     position: relative !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
   }
 
   .collection-list__item .card__heading a::after {
@@ -123,12 +124,14 @@
   }
 
   .collection-list__item .card:hover .card__heading a {
-    background: rgb(var(--color-background)) !important; /* Solid background on hover */
+    background: rgb(var(--color-background)) !important;
+    color: rgb(var(--color-foreground)) !important;
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
-    transform: translateY(-2px) !important;
-    border-color: rgba(var(--color-foreground), 0.1) !important;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1) !important;
+    transform: translateY(-4px) !important;
+    border-color: rgb(var(--color-background)) !important;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2) !important;
+    text-shadow: none !important;
   }
 
   .collection-list__item .card__heading .icon-wrap {
