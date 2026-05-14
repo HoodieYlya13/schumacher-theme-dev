@@ -68,7 +68,7 @@
     "featured_collection": {
       "type": "featured-collection",
       "settings": {
-        "collection": "recommendations",
+        "collection": "recommendations-old",
         "products_to_show": 4,
         "title": "The Winemaker's Selection",
         "heading_size": "h1",
