@@ -4173,15 +4173,4 @@ details-disclosure > details {
   backdrop-filter: blur(8px) !important;
   -webkit-backdrop-filter: blur(8px) !important;
   z-index: 2147483646 !important;
-  touch-action: none !important;
-}
-
-/* Lock body/html scroll when Privacy Center dialog or banner is open */
-html:has(#shopify-pc__prefs__dialog),
-html:has(#shopify-pc__prefs__dialog) body,
-html:has(#shopify-pc__banner),
-html:has(#shopify-pc__banner) body {
-  overflow: hidden !important;
-  height: 100vh !important;
-  height: 100dvh !important;
 }
